@@ -1,14 +1,13 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { isEmpty } from "lodash";
+import styled from "styled-components";
 import { Label, Subheading } from "@/components/Typography/Typography";
 import { useValidateEmail } from "@/hooks/useValidateEmail";
 import Icon from "@/components/Icon";
 import Input from "@/components/Input";
-import Checkbox from "@/components/Checkbox";
 import Button from "@/components/Button";
-import useLogin from "@/queries/useLogin";
+import useRegister from "@/queries/useRegister";
 
 const HeaderWrapper = styled.div({
   display: "flex",
@@ -33,11 +32,6 @@ const AlignWrapper = styled.div({
   width: "100%",
 });
 
-const FlexBox = styled(AlignWrapper)({
-  display: "flex",
-  justifyContent: "space-between",
-});
-
 const SignUpWrapper = styled.div({
   display: "flex",
   alignItems: "center",
@@ -52,13 +46,24 @@ const buttonStyles = {
   },
 };
 
-export const Login = () => {
+export const Register = () => {
   const navigate = useNavigate();
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
   const { errorMessage } = useValidateEmail(credentials.email);
-  const { mutate, error = "" } = useLogin();
+  const { mutate, error = "" } = useRegister();
+
+  const passwordError = useMemo(
+    () =>
+      credentials.password !== "" && credentials.password.length < 6
+        ? "Password length should be at least 6 characteres"
+        : null,
+    [credentials.password]
+  );
 
   const setValues = useCallback((key, value) => {
     setCredentials((prevState) => ({
@@ -67,14 +72,11 @@ export const Login = () => {
     }));
   }, []);
 
-  const login = useCallback(() => {
-    mutate({
-      ...credentials,
-      rememberMe,
-    });
-  }, [mutate, credentials, rememberMe]);
+  const register = useCallback(async () => {
+    mutate(credentials);
+  }, [mutate, credentials]);
 
-  const loginError = useMemo(
+  const registerErrorMessage = useMemo(
     () => (!isEmpty(error) ? error.response?.data?.error : ""),
     [error]
   );
@@ -82,9 +84,9 @@ export const Login = () => {
   return (
     <LoginContainer>
       <AlignWrapper>
-        <Subheading>Login</Subheading>
+        <Subheading>Create Account</Subheading>
         <HeaderWrapper>
-          <Label>Hi, Welcome back</Label>
+          <Label>Happy to have you on board</Label>
           <Icon
             icon="wavingHand"
             variant="secondary"
@@ -93,6 +95,11 @@ export const Login = () => {
         </HeaderWrapper>
       </AlignWrapper>
       <AlignWrapper>
+        <Input
+          label="Full Name"
+          placeholder="E.g John Doe"
+          onChange={(value) => setValues("fullName", value)}
+        />
         <Input
           label="Email"
           placeholder="E.g john@gmail.com"
@@ -109,31 +116,23 @@ export const Login = () => {
           icon={showPassword ? "visibility" : "hidden"}
           onClick={() => setShowPassword(!showPassword)}
           iconColor="placeholder"
+          errorMessage={passwordError}
         />
       </AlignWrapper>
-      <FlexBox>
-        <Checkbox
-          label="Remember me"
-          id="remember"
-          onChange={(value) => setRememberMe(value)}
-          value={rememberMe}
-        />
-        <Button color="secondary" variant="text" label="Forgot Password?" />
-      </FlexBox>
-      {!!loginError && (
+      {!!registerErrorMessage && (
         <Label
           color="warning"
-          style={{ marginTop: 20, alignSelf: "flex-start" }}
+          style={{ margin: "2px 4px 0px 0px", alignSelf: "flex-start" }}
         >
-          {loginError}
+          {registerErrorMessage}
         </Label>
       )}
-      <Button onClick={login} label="Login" style={{ ...buttonStyles }} />
+      <Button onClick={register} label="Register" style={{ ...buttonStyles }} />
       <SignUpWrapper>
-        <Label margin="2px 4px 0px 0px">Not registered yet?</Label>
+        <Label margin="2px 4px 0px 0px">Already a member?</Label>
         <Button
-          onClick={() => navigate("/register")}
-          label="Create an account"
+          onClick={() => navigate("/login")}
+          label="Login instead"
           variant="text"
           icon="link"
         />

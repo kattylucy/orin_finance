@@ -1,6 +1,6 @@
-// client/src/components/Button.jsx
 import React from "react";
 import styled from "styled-components";
+import Icon from "@/components/Icon";
 
 const StyledButton = styled.button(({ theme, variant }) => ({
   backgroundColor: variant === "text" ? "transparent" : theme.colors.secondary,
@@ -26,15 +26,25 @@ const StyledButton = styled.button(({ theme, variant }) => ({
 }));
 
 const ButtonWrapper = styled.div({
-  display: "inline-block",
+  display: "flex",
+  alignItems: "center",
 });
 
-export const Button = ({ label, onClick, variant, ...props }) => {
+export const Button = ({ label, onClick, variant, icon, ...props }) => {
   return (
     <ButtonWrapper variant={variant} {...props}>
       <StyledButton variant={variant} onClick={onClick}>
         {label}
       </StyledButton>
+      {icon && (
+        <Icon
+          width={12}
+          heigth={12}
+          icon={icon}
+          style={{ marginLeft: 4 }}
+          variant="secondary"
+        />
+      )}
     </ButtonWrapper>
   );
 };

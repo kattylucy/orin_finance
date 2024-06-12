@@ -2,6 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const authenticate = require("./middleware/authenticate");
@@ -9,10 +10,12 @@ const authenticate = require("./middleware/authenticate");
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors());
+
 app.use(bodyParser.json());
 
 // routes
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // Secure route example
 app.get("/secure-data", authenticate, async (req, res) => {

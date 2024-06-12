@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-export const Label = styled.p(({ theme, margin, color, weight }) => ({
+export const Label = styled.p(({ theme, margin, color, weight, props }) => ({
   fontFamily: theme.fonts.primary,
   fontSize: 12,
   margin: margin || 0,
   padding: 0,
   color: theme.colors[color] || theme.colors.text,
   fontWeight: weight || 400,
+  ...props,
 }));
 
 export const Heading = styled.h1(({ theme, props }) => ({

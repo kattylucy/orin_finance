@@ -10,6 +10,7 @@ export const theme = {
     placeholder: "#9CA3AF",
     white: "#FFFFFF",
     warning: "#FF4136",
+    gray: "#6B7280",
   },
   fonts: {
     primary: "'Inter', sans-serif",
