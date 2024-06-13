@@ -11,6 +11,7 @@ export const theme = {
     white: "#FFFFFF",
     warning: "#FF4136",
     gray: "#6B7280",
+    lightGray: "#D3D3D3",
   },
   fonts: {
     primary: "'Inter', sans-serif",

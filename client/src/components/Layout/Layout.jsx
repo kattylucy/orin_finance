@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Heading, Label } from "@/components/Typography/Typography";
+import { Heading, Label, Subheading } from "@/components/Typography/Typography";
 import Icon from "@/components/Icon";
 import useIsMobile from "@/hooks/useIsMobile";
 
@@ -18,7 +18,13 @@ const Sidebar = styled.div(({ theme, collapse, isMobile }) => ({
 
 const Content = styled.div(({ collapse }) => ({
   marginLeft: collapse ? 0 : "20%",
-  transition: "margin-left 0.3s ease",
+  marginRight: "20%",
+  transition: "margin-left 0.3s ease, margin-right 0.3s ease",
+  flexGrow: 1,
+  display: "flex",
+  flexDirection: "column",
+  padding: "20px",
+  boxSizing: "border-box",
 }));
 
 const NavWrapper = styled.div({
@@ -60,7 +66,7 @@ const Logo = styled.div({
 
 const ToggleButton = styled.button(({ theme, collapse, isMobile }) => ({
   position: "fixed",
-  top: collapse ? "50%" : 40,
+  top: "50%",
   left: collapse ? "1rem" : isMobile ? "90%" : "18%",
   transform: "translate(-50%, -50%)",
   background: "transparent",
@@ -78,7 +84,19 @@ const ToggleButton = styled.button(({ theme, collapse, isMobile }) => ({
   },
 }));
 
+const NotificationsBar = styled.div(({ theme }) => ({
+  width: "15%",
+  background: theme.colors.white,
+  position: "fixed",
+  right: 0,
+  top: 0,
+  bottom: 0,
+  padding: 20,
+  overflowY: "auto",
+}));
+
 export const Layout = () => {
+  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [collapse, setCollapse] = useState(!!isMobile);
 
@@ -91,7 +109,8 @@ export const Layout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("refreshToken");
     sessionStorage.removeItem("accessToken");
-  }, []);
+    navigate("/login");
+  }, [navigate]);
 
   const navItems = [
     {
@@ -156,6 +175,10 @@ export const Layout = () => {
       <Content collapse={collapse}>
         <Outlet />
       </Content>
+      <NotificationsBar>
+        <Subheading>Notifications</Subheading>
+        {/* Add your notifications content here */}
+      </NotificationsBar>
     </div>
   );
 };
