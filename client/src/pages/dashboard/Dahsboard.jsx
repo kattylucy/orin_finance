@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Heading, Subheading } from "@/components/Typography/Typography";
 import useCurrentDate from "@/hooks/useCurrentDate";
 import SearchBar from "@/components/SearchBar";
+import Actions from "./Actions";
 import { Card } from "./Card";
 import { Balance } from "./Balance";
 
@@ -17,8 +17,6 @@ const Container = styled.div({
 });
 
 export const Dashboard = () => {
-  const { day, month, date } = useCurrentDate();
-
   return (
     <DashboardWrapper>
       <SearchBar
@@ -29,7 +27,9 @@ export const Dashboard = () => {
         <Card label="Balance" withDropdown>
           <Balance />
         </Card>
-        <Card label="Actions" />
+        <Card label="Actions">
+          <Actions />
+        </Card>
       </Container>
     </DashboardWrapper>
   );

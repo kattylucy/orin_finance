@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Subheading } from "@/components/Typography/Typography";
 import { Dropdown } from "@/components/Dropdown/Dropdown";
@@ -36,6 +36,10 @@ export const Card = ({ label, children, withDropdown }) => {
     ];
   }, []);
 
+  const calendarChange = useCallback((dates) => {
+    console.log(dates);
+  }, []);
+
   return (
     <Wrapper>
       <Container>
@@ -45,6 +49,7 @@ export const Card = ({ label, children, withDropdown }) => {
             onChange={(option) => console.log(option)}
             style={{ marginRight: 12 }}
             options={options}
+            calendarChange={calendarChange}
           />
         )}
       </Container>

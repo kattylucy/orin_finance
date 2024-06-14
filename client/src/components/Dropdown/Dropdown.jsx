@@ -47,14 +47,17 @@ const Option = styled.div(({ theme }) => ({
   },
 }));
 
-export const Dropdown = ({ options, onChange, ...props }) => {
+export const Dropdown = ({ options, onChange, calendarChange, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [selected, setSelected] = useState(null);
   const ref = useRef();
 
   useOutsideClick(ref, () => {
-    if (isOpen) setIsOpen(false);
+    if (isOpen || openCalendar) {
+      setIsOpen(false);
+      setOpenCalendar(false);
+    }
   });
 
   const handleSelect = (option) => {
@@ -90,7 +93,7 @@ export const Dropdown = ({ options, onChange, ...props }) => {
           ))}
         </OptionsContainer>
       )}
-      {openCalendar && <Calendar />}
+      {openCalendar && <Calendar onChange={calendarChange} />}
     </DropdownContainer>
   );
 };
