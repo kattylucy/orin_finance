@@ -10,6 +10,16 @@ export const Label = styled.p(({ theme, margin, color, weight, props }) => ({
   ...props,
 }));
 
+export const Span = styled.span(({ theme, margin, color, weight, props }) => ({
+  fontFamily: theme.fonts.primary,
+  fontSize: 8,
+  margin: margin || 0,
+  padding: 0,
+  color: theme.colors[color] || theme.colors.gray,
+  fontWeight: weight || 400,
+  ...props,
+}));
+
 export const Heading = styled.h1(({ theme, props }) => ({
   fontFamily: theme.fonts.primary,
   margin: 0,

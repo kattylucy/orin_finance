@@ -25,14 +25,15 @@ const Container = styled.div({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  height: 30,
 });
 
-export const Card = ({ label, children, withDropdown }) => {
+export const Card = ({ label, children, withDropdown, ...props }) => {
   const options = useMemo(() => {
     return [
+      { label: "Last two weeks", value: "lastTwoWeeks" },
       { label: "Current month", value: "currentMonth" },
       { label: "Last Month", value: "lastMonth" },
-      { label: "Custom", value: "custom" },
     ];
   }, []);
 
@@ -41,7 +42,7 @@ export const Card = ({ label, children, withDropdown }) => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       <Container>
         <Subheading style={{ marginLeft: 12 }}>{label}</Subheading>
         {withDropdown && (

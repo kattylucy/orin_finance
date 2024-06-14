@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import useCurrentDate from "@/hooks/useCurrentDate";
 import SearchBar from "@/components/SearchBar";
 import Actions from "./Actions";
+import Transactions from "./Transactions";
 import { Card } from "./Card";
 import { Balance } from "./Balance";
 
@@ -27,10 +27,11 @@ export const Dashboard = () => {
         <Card label="Balance" withDropdown>
           <Balance />
         </Card>
-        <Card label="Actions">
+        <Card label="Actions" style={{ marginRight: 0 }}>
           <Actions />
         </Card>
       </Container>
+      <Transactions label="Transactions" />
     </DashboardWrapper>
   );
 };

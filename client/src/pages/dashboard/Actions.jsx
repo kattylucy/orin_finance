@@ -8,22 +8,7 @@ const Container = styled.div({
 });
 
 const Actions = () => {
-  return (
-    <Container>
-      <Button
-        label="Add Income"
-        icon="trendingUp"
-        style={{ width: 140, marginBottom: 12 }}
-        variant="text"
-      />
-      <Button
-        label="Add Expense"
-        variant="outlined"
-        icon="trendingDown"
-        style={{ width: 140, marginBottom: 12 }}
-      />
-    </Container>
-  );
+  return <Container></Container>;
 };
 
 export default Actions;
