@@ -3,6 +3,12 @@ import styled from "styled-components";
 import Icon from "@/components/Icon";
 import { Label } from "@/components/Typography/Typography";
 
+const getBackground = (variant, theme) => {
+  if (variant === "text") return "transparent";
+  else if (variant === "outlined") return theme.colors.secondary;
+  else theme.colors.primary;
+};
+
 const StyledButton = styled.button(({ theme, variant }) => ({
   backgroundColor:
     variant === "text" || variant === "outlined"
@@ -36,13 +42,9 @@ const StyledButton = styled.button(({ theme, variant }) => ({
   },
 
   "&:hover": {
-    backgroundColor:
-      variant === "outlined"
-        ? variant === "text"
-          ? "transparent"
-          : theme.colors.secondary
-        : theme.colors.primary,
+    backgroundColor: getBackground(variant, theme),
     "& > p": {
+      backgroundColor: "transparent",
       color:
         variant === "text" || variant === "outlined"
           ? theme.colors.primary

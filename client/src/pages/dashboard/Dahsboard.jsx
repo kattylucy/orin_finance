@@ -31,7 +31,7 @@ export const Dashboard = () => {
           <Actions />
         </Card>
       </Container>
-      <Transactions label="Transactions" />
+      <Transactions label="Recent Transactions" />
     </DashboardWrapper>
   );
 };

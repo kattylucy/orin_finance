@@ -13,7 +13,6 @@ const DropdownContainer = styled.div(({ theme }) => ({
 }));
 
 const Selected = styled.div(({ theme }) => ({
-  background: theme.colors.white,
   padding: 8,
   border: `1px solid ${theme.colors.border}`,
   borderRadius: 4,

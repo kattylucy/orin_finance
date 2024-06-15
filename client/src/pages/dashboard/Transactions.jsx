@@ -3,14 +3,12 @@ import styled from "styled-components";
 import { Subheading, Label, Span } from "@/components/Typography/Typography";
 import Icon from "@/components/Icon";
 import Button from "@/components/Button";
+import Dropdown from "@/components/Dropdown";
 
 const Container = styled.div(({ theme }) => ({
   marginTop: 40,
   overflow: "auto",
   maxHeight: 220,
-  backgroundColor: theme.colors.white,
-  borderRadius: 8,
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
 }));
 
 const DataWrapper = styled.div({});
@@ -30,8 +28,11 @@ const Flex = styled.div(({ theme }) => ({
 }));
 
 const Heading = styled.div(({ theme }) => ({
-  padding: 20,
+  padding: 12,
   borderBottom: `0.5px solid ${theme.colors.lightGray}`,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 }));
 
 const data = [
@@ -67,11 +68,22 @@ const data = [
   },
 ];
 
+const options = [
+  { label: "Today", value: "today" },
+  { label: "Yesterday", value: "yesterday" },
+  { label: "This Week", value: "thisWeek" },
+];
+
 const Transactions = ({ label }) => {
   return (
     <Container>
       <Heading>
         <Subheading>{label}</Subheading>
+        <Dropdown
+          onChange={(option) => console.log(option)}
+          style={{ marginRight: 12 }}
+          options={options}
+        />
       </Heading>
       <DataWrapper>
         {data.map((transaction) => {
@@ -99,10 +111,6 @@ const Transactions = ({ label }) => {
           display: "flex",
           margin: "20px auto",
           width: 20,
-          "& > p": {
-            fontWeight: 600,
-            fontSize: 22,
-          },
         }}
         variant="text"
       />

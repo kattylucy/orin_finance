@@ -1,15 +1,14 @@
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Subheading } from "@/components/Typography/Typography";
-import { Dropdown } from "@/components/Dropdown/Dropdown";
+import Dropdown from "@/components/Dropdown";
 
 const Wrapper = styled.div(({ theme }) => ({
   backgroundColor: theme.colors.white,
   borderRadius: 8,
-  padding: "20px 0px",
+  paddingBottom: 20,
   marginRight: 40,
   width: "50%",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
 }));
 
 const Line = styled.hr(({ theme }) => ({
@@ -25,7 +24,8 @@ const Container = styled.div({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  height: 30,
+  height: 20,
+  padding: "20px 8px 8px 8px",
 });
 
 export const Card = ({ label, children, withDropdown, ...props }) => {
